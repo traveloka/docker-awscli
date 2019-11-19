@@ -1,8 +1,9 @@
-FROM alpine:3.7
+FROM alpine:3.10
 
-ENV AWS_CLI_VERSION=1.15.28
+ENV AWS_CLI_VERSION=1.16.284
+ENV S3_CMD_VERSION=2.0.2
 
-RUN apk -v --update add \
+RUN apk -v --update --no-cache add \
         python \
         py-pip \
         ca-certificates \
@@ -13,6 +14,5 @@ RUN apk -v --update add \
         tar \ 
         jq \
     && \
-    pip install --upgrade awscli==${AWS_CLI_VERSION} s3cmd==2.0.1 && \
-    apk -v --purge del py-pip && \
-    rm /var/cache/apk/*
+    pip install --upgrade awscli==${AWS_CLI_VERSION} s3cmd==${S3_CMD_VERSION} && \
+    apk -v --purge del py-pip
